@@ -142,21 +142,19 @@ Box(
 
 
 
-
+<br><br>
 ## Comparison Table
 | Composable | Layout Behavior | Common Attributes | Best Use Cases |
 |----------|----------|----------|----------|
 |  Column | Vertical arrangement  | `verticalArrangement`, `horizontalAlignment`  | Forms, lists, vertical stacking  |
 | Row  | Horizontal arrangement  | `horizontalArrangement`, `verticalAlignment`  |  Navigation bars, horizontal alignment |
 | Box  | Overlapping composables (z-order)  | `contentAlignment`, `Modifier`  |  Overlays, floating action buttons |
-|
-
-
+<br><br><br><br><br>
 
 
 
 ### Example of `Column` with working attributes and properties
-___
+---
 
 
 ```kotlin
@@ -218,9 +216,6 @@ fun ColumnExample() {
         }
     }
 }
-
-
-
 ```
 
 
@@ -261,3 +256,291 @@ fun ColumnExample() {
    - `Image`: Displays images with transformations.
    - `Spacer`: Adds empty space between children.
    - `Box`: Nested layout for overlapping or layered content.
+
+
+
+
+<br><br><br><br><br>
+
+
+
+
+
+### Example of `Row` with working attributes and properties
+---
+
+
+```kotlin
+@Composable
+fun RowExample() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth() // Fills the available width of the screen
+            .padding(16.dp) // Adds padding around the row
+            .background(Color.LightGray) // Sets background color
+            .border(2.dp, Color.Black) // Adds a border around the row
+            .horizontalScroll(rememberScrollState()), // Makes the row scrollable if content overflows
+        horizontalArrangement = Arrangement.spacedBy(12.dp), // Adds space between Text children
+        verticalAlignment = Alignment.CenterVertically // Aligns children vertically to the center
+    ) {
+        // Child 1: Text
+        Text(
+            text = "Hello",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Blue,
+            modifier = Modifier.padding(8.dp) // Adds inner padding to the Text
+        )
+
+        // Child 2: Text
+        Text(
+            text = "Jetpack",
+            fontSize = 20.sp,
+            fontStyle = FontStyle.Italic,
+            color = Color.Green,
+            modifier = Modifier
+                .align(Alignment.Top) // Overrides row's vertical alignment for this Text
+        )
+
+        // Child 3: Text
+        Text(
+            text = "Compose",
+            fontSize = 22.sp,
+            fontWeight = FontWeight.ExtraBold,
+            color = Color.Red,
+            modifier = Modifier
+                .padding(4.dp) // Adds padding inside the Text
+                .align(Alignment.Bottom) // Aligns this Text at the bottom of the row
+        )
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Explanation of Attributes and Properties Used
+
+1. **Modifier**:
+   - `fillMaxWidth`: Ensures the row spans the entire width of the screen.
+   - `padding`: Adds spacing around the row.
+   - `background`: Sets a background color.
+   - `border`: Adds a border to the row for visual clarity.
+   - `horizontalScroll`: Makes the row scrollable horizontally if the content overflows.
+
+2. **horizontalArrangement**:
+   - Defines how children are spaced horizontally within the row.
+   - Example: `Arrangement.spacedBy(12.dp)` creates 12dp spacing between the Texts.
+
+3. **verticalAlignment**:
+   - Aligns children vertically relative to the row.
+   - Example: `Alignment.CenterVertically` centers all children vertically within the row.
+
+4. **Child-Specific Modifiers**:
+   - `align`: Overrides the row's vertical alignment for a specific child (e.g., `Alignment.Top`, `Alignment.Bottom`).
+5. **Text Customizations**:
+   - `fontSize`: Sets the size of the text.
+   - `fontWeight`: Adjusts the thickness of the text.
+   - `fontStyle`: Applies styles like italic.
+   - `color`: Changes the text color.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br>
+
+
+
+
+
+### Example of `Box` with working attributes and properties (utilising Overlapping feature)
+---
+
+
+```kotlin
+@Composable
+fun BoxExample() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize() // Fills the entire available screen space
+            .padding(16.dp) // Adds padding around the Box
+            .background(Color.LightGray) // Sets the background color of the Box
+            .border(2.dp, Color.Black), // Adds a border to the Box
+        contentAlignment = Alignment.Center // Aligns all children to the center by default
+    ) {
+        // Child 1: Text (Background-like Text)
+        Text(
+            text = "Background Text",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Gray,
+            modifier = Modifier.align(Alignment.CenterStart) // Aligns this Text to the start of the center
+        )
+
+        // Child 2: Text (Center Text)
+        Text(
+            text = "Center Text",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.ExtraBold,
+            color = Color.Blue
+        ) // This Text aligns with the `contentAlignment` (center by default)
+
+        // Child 3: Text (Overlay Text at Bottom)
+        Text(
+            text = "Bottom Right Text",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.Red,
+            modifier = Modifier.align(Alignment.BottomEnd) // Places the Text at the bottom-right corner
+        )
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Explanation of Attributes and Properties Used
+
+1. **Modifier**:
+   - `fillMaxSize`: Makes the `Box` fill the entire screen space.
+   - `padding`: Adds space around the `Box`.
+   - `background`: Applies a background color.
+   - `border`: Draws a border around the `Box`.
+
+2. **contentAlignment**:
+   - Specifies the default alignment for all children in the `Box`.
+   - Example: `Alignment.Center` aligns all children to the center unless overridden.
+
+3. **Child-Specific `Modifier.align`**:
+   - Overrides the default `contentAlignment` for a specific child.
+   - Examples:
+     - `Alignment.CenterStart`: Aligns the child to the left of the center.
+     - `Alignment.BottomEnd`: Aligns the child to the bottom-right corner.
+
+4. **Text Customizations**:
+   - `fontSize`: Adjusts the size of the text.
+   - `fontWeight`: Specifies text thickness.
+   - `color`: Changes the text color.
+
+
+
+
+
+<br><br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+### Example of `Box` with working attributes and properties (Centering and Aligning a Single Element)
+---
+
+
+```kotlin
+@Composable
+fun BoxExample() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize() // Fills the entire available screen space
+            .padding(16.dp) // Adds padding around the Box
+            .background(Color.LightGray) // Sets the background color of the Box
+            .border(2.dp, Color.Black), // Adds a border to the Box
+        contentAlignment = Alignment.Center // Aligns all children to the center by default
+    ) {
+        // Child 1: Text (Background-like Text)
+        Text(
+            text = "Background Text",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Gray,
+            modifier = Modifier.align(Alignment.CenterStart) // Aligns this Text to the start of the center
+        )
+
+        // Child 2: Text (Center Text)
+        Text(
+            text = "Center Text",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.ExtraBold,
+            color = Color.Blue
+        ) // This Text aligns with the `contentAlignment` (center by default)
+
+        // Child 3: Text (Overlay Text at Bottom)
+        Text(
+            text = "Bottom Right Text",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.Red,
+            modifier = Modifier.align(Alignment.BottomEnd) // Places the Text at the bottom-right corner
+        )
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Explanation of Attributes and Properties Used
+
+1. **Modifier**:
+   - `fillMaxSize`: Makes the `Box` fill the entire screen space.
+   - `padding`: Adds space around the `Box`.
+   - `background`: Applies a background color.
+   - `border`: Draws a border around the `Box`.
+
+2. **contentAlignment**:
+   - Specifies the default alignment for all children in the `Box`.
+   - Example: `Alignment.Center` aligns all children to the center unless overridden.
+
+3. **Child-Specific `Modifier.align`**:
+   - Overrides the default `contentAlignment` for a specific child.
+   - Examples:
+     - `Alignment.CenterStart`: Aligns the child to the left of the center.
+     - `Alignment.BottomEnd`: Aligns the child to the bottom-right corner.
+
+4. **Text Customizations**:
+   - `fontSize`: Adjusts the size of the text.
+   - `fontWeight`: Specifies text thickness.
+   - `color`: Changes the text color.
