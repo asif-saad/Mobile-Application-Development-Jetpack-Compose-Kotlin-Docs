@@ -6,7 +6,7 @@
 ---
 
 **Definition**:
-A `ViewModel` is a class designed to store and manage UI-related data in a lifecycle-conscious way. It allows data to survive configuration changes like screen rotations.
+A `ViewModel` is a class designed to store and manage UI-related data in a lifecycle-conscious way. It allows data to survive configuration changes like screen rotations. `ViewModel` in Android is used for managing UI-related data in a lifecycle-conscious way. It serves as an abstraction layer between the UI (Activity/Fragment) and the data layer (e.g., repositories, databases, or network sources), ensuring that your app’s data survives configuration changes (like screen rotations) and remains consistent.
 
 **Purpose**:
 It helps separate the UI logic from the business logic, making your code cleaner and easier to maintain.
